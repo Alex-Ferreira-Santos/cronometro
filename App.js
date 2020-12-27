@@ -8,32 +8,44 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      tempo: '0.0s',
+      tempo: 0.0,
+      minutos: '',
       zerar: 'Zerar',
       comecar: 'Vai!',
-      contando: true,
     }
     this.contador = this.contador.bind(this)
+    this.zerar = this.zerar.bind(this)
   }
 
-  contador = () => {
+  contador(){
+    setInterval(() =>{   
+          let time = this.state.tempo + 0.1
+          if(time>59.9){
+            time = 0
+            minutos++
+            this.setState({minutos:`${minutos}m `})
+          }    
+          this.setState({tempo: time})
+          this.setState({contando: true}) 
+      },100)
+  }
 
-    while(this.state.contando){
-      alert('oi')
-      break
-    }
+  zerar(){
+    this.setState({contador: false})
+    this.setState({minutos:''})
+    this.setState({tempo: 0})
   }
 
   render(){
     return (
       <View style={styles.container}>
         <Text style={styles.logo}>Logo</Text>
-        <Text style={styles.time}>{this.state.tempo}</Text>
+        <Text style={styles.time}>{this.state.minutos}{this.state.tempo.toFixed(1)}s</Text>
         <View style={styles.buttons}>
           <TouchableOpacity style={styles.vai} onPress={this.contador}>
             <Text style={styles.textVai}>{this.state.comecar}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.zerar}>
+          <TouchableOpacity style={styles.zerar} onPress={this.zerar}>
             <Text style={styles.textZerar}>{this.state.zerar}</Text>
           </TouchableOpacity>
         </View>
