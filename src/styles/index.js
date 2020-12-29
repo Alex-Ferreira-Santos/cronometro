@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   
     },
     buttons:{
-      width: '95%',
+      width: '92%',
       top: 30,
       justifyContent: 'space-between',
       flexDirection: 'row',
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
       width: 150
     },
     data:{
-      width: '95%',
+      width: '92%',
       flexDirection: 'row',
       justifyContent: 'space-between',
       top: 50,

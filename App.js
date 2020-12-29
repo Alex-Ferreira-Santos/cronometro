@@ -16,7 +16,6 @@ export default class App extends Component {
       style: styles.vai,
       registro: [],
       styleData: styles.invisivel,
-      casa:0,
     }
     this.contador = this.contador.bind(this)
     this.zerar = this.zerar.bind(this)
@@ -57,12 +56,16 @@ export default class App extends Component {
   zerar(){
     if(this.state.zerar === 'Salvar e zerar'){
       this.setState({styleData: styles.data})
-      this.state.registro.push(this.tempoTotal)
-      this.setState({casa: this.state.casa++})
-    }
+      this.state.registro.push(`${this.state.minutos} ${this.state.tempo.toFixed(1)}s`)
+      
+    } 
+    this.setState({zerar: 'Zerar'})
+    this.setState({style: styles.vai})
+    this.setState({comecar: 'Vai!'})
     this.setState({contador: false})
     this.setState({minutos:''})
     this.setState({tempo: 0})
+    clearInterval(this.contagem)
   }
 
   render(){
@@ -86,7 +89,7 @@ export default class App extends Component {
           <View style={styles.dados}>
             <Text style={styles.text}>Tempo</Text>
             <Text style={styles.text}>
-              {this.state.registro[this.state.casa]}
+              {this.state.registro[this.state.registro.length - 1]}
             </Text>
           </View>
         </View>
