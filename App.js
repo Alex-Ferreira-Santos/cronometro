@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component }from 'react';
 import { render } from 'react-dom';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import {Text, View, TouchableOpacity } from 'react-native';
+import styles from './src/styles/index'
 
 export default class App extends Component {
 
@@ -12,12 +13,15 @@ export default class App extends Component {
       minutos: '',
       zerar: 'Zerar',
       comecar: 'Vai!',
+      style: styles.vai
     }
     this.contador = this.contador.bind(this)
     this.zerar = this.zerar.bind(this)
   }
 
   contador(){
+    this.setState({style: styles.pausar})
+    this.setState({comecar: 'Pausar'})
     setInterval(() =>{   
           let time = this.state.tempo + 0.1
           if(time>59.9){
@@ -39,14 +43,14 @@ export default class App extends Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text style={styles.logo}>Logo</Text>
+        <Text style={styles.logo}>Sports Center</Text>
         <Text style={styles.time}>{this.state.minutos}{this.state.tempo.toFixed(1)}s</Text>
         <View style={styles.buttons}>
-          <TouchableOpacity style={styles.vai} onPress={this.contador}>
-            <Text style={styles.textVai}>{this.state.comecar}</Text>
+          <TouchableOpacity style={this.state.style} onPress={this.contador}>
+            <Text style={styles.text}>{this.state.comecar}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.zerar} onPress={this.zerar}>
-            <Text style={styles.textZerar}>{this.state.zerar}</Text>
+            <Text style={styles.text}>{this.state.zerar}</Text>
           </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
@@ -56,52 +60,4 @@ export default class App extends Component {
 
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'Arial'
-  },
-  logo:{
-    position: 'absolute',
-    backgroundColor: 'lightblue',
-    fontSize: 40,
-    padding: 30,
-    top: 100,
-  },
-  time:{
-    fontSize: 30,
 
-  },
-  buttons:{
-    width: '95%',
-    top: 30,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  vai:{
-    backgroundColor: 'pink',
-    width: 150,
-    height: 50,
-    justifyContent: 'center',
-    borderRadius: 15,
-  },
-  textVai:{
-    textAlign: 'center',
-    fontSize: 20,
-  },
-  zerar:{
-    backgroundColor: 'green',
-    width: 150,
-    height: 50,
-    justifyContent: 'center',
-    borderRadius: 15,
-  },
-  textZerar:{
-    textAlign: 'center',
-    fontSize: 20,
-  }
-});
