@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet,Dimensions} from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
@@ -34,7 +34,11 @@ const styles = StyleSheet.create({
       borderRadius: 15,
     },
     pausar:{
-      backgroundColor: 'orange'
+      backgroundColor: 'orange',
+      width: 150,
+      height: 50,
+      justifyContent: 'center',
+      borderRadius: 15,
     },
     text:{
       textAlign: 'center',
@@ -47,6 +51,18 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       borderRadius: 15,
     },
+    invisivel:{
+      display: 'none'
+    },
+    dados:{
+      width: 150
+    },
+    data:{
+      width: '95%',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      top: 50,
+    }
 });
 
 export default styles
