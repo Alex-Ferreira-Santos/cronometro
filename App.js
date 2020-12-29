@@ -16,45 +16,49 @@ export default class App extends Component {
       style: styles.vai,
       registro: [],
       styleData: styles.invisivel,
+      casa:0,
     }
     this.contador = this.contador.bind(this)
     this.zerar = this.zerar.bind(this)
-    this.tempoTotal = `${this.state.minutos} ${this.state.tempo}s`
+    this.contar = this.contar.bind(this)
+    
     this.ultimoMinuto = 0
+    this.contagem
   }
   
-
-
-  contador(){
-    if(this.state.comecar === 'Pausar'){
-      this.parar
-      this.setState({style: styles.vai})
-      this.setState({comecar: 'Vai!'})
-      clearInterval(contagem)
-      alert('Passou por aqui')
-      return
-
-    }else{
-      this.setState({style: styles.pausar})
-      this.setState({comecar: 'Pausar'})
-      this.setState({zerar: 'Salvar e zerar'})
-    }
-    const contagem = setInterval(()=>{
-      let time = this.state.tempo + 0.1
+  contar(){
+    let time = this.state.tempo + 0.1
       if(time>59.9){
         time = 0
         this.ultimoMinuto++
         this.setState({minutos:`${this.ultimoMinuto}m `})
       }    
       this.setState({tempo: time})
-      this.setState({contando: true}) 
-    },100)
+      this.setState({contando: true})  
+  }
+
+  contador(){
+    if(this.state.comecar === 'Pausar'){
+      this.parar
+      this.setState({style: styles.vai})
+      this.setState({comecar: 'Vai!'})
+      clearInterval(this.contagem)
+      return
+
+    }else{
+      this.contagem = setInterval(this.contar,100)
+      this.setState({style: styles.pausar})
+      this.setState({comecar: 'Pausar'})
+      this.setState({zerar: 'Salvar e zerar'})
+    }
+    
   }
 
   zerar(){
     if(this.state.zerar === 'Salvar e zerar'){
       this.setState({styleData: styles.data})
       this.state.registro.push(this.tempoTotal)
+      this.setState({casa: this.state.casa++})
     }
     this.setState({contador: false})
     this.setState({minutos:''})
@@ -82,7 +86,7 @@ export default class App extends Component {
           <View style={styles.dados}>
             <Text style={styles.text}>Tempo</Text>
             <Text style={styles.text}>
-              {this.state.minutos}{this.state.tempo.toFixed(1)}s
+              {this.state.registro[this.state.casa]}
             </Text>
           </View>
         </View>
